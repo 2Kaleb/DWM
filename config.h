@@ -20,8 +20,16 @@ static const char *colors[][3]      = {
 };
 
 static const char *const autostart[] = {
-	"sh", "-c", "powerfolder", NULL,
-	"thunderbird", NULL,
+        "tcsh", "-c", "spyder", NULL,
+       /* "tcsh", "-c", "brave", NULL,*/
+        "thunderbird", NULL,
+        "tcsh", "-c", "whatsapp", NULL,
+	"tcsh", "-c", "thorium",NULL,
+        "texstudio",NULL,
+        "zoom",NULL,
+        "zotero",NULL,
+	"tcsh", "-c", "powerfolder", NULL,
+	"/bin/bash", "-c", "/home/kdebre/Suckless/dwm/status.sh", NULL,
 	NULL /* terminate */
 };
 
@@ -38,10 +46,16 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "brave-browser",     NULL,       NULL,       1 << 0,            False,           -1},
-	{ "thunderbird",  NULL,       NULL,       1 << 1,       False,           0 },
-	{ "de-dal33t-Start",  NULL,       NULL,       1 << 2,       1,           0 },
-	{ "St",      NULL,     NULL,           0,         0,                   -1 },
+	{ "Spyder",     NULL,       NULL,       1 << 0,       False,           0},
+	/*{ "Brave-browser",     NULL,       NULL,       1 << 1,        False,           0},*/
+	{ "Thorium-browser",NULL,NULL,1<<1,False,0},
+	{ "thunderbird",  NULL,       NULL,       1 << 2,       False,           0 },
+	{ "whatsapp-desktop-linux",  NULL,       NULL,       1 << 3,       False,           0 },
+	{ "TeXstudio",  NULL,       NULL,       1 << 0,       False,           1 },
+	{ "zoom",  NULL,       NULL,       1 << 1,       False,           1 },
+	{ "Zotero",  NULL,       NULL,       1 << 2,       False,           1 },
+	{ "de-dal33t-Start",  NULL,       NULL,       1 << 3,       1,          1 },
+	{"st-256color",NULL,NULL,1<<8,False,-1},
 };
 
 /* layout(s) */
@@ -66,7 +80,7 @@ static const Layout layouts[] = {
 	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
-#define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
+#define SHCMD(cmd) { .v = (const char*[]){ "/bin/tcsh", "-c", cmd, NULL } }
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
@@ -77,9 +91,8 @@ static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
-	{ MODKEY,                       0xffb1,      spawn,          SHCMD ("brave")},
-	{ MODKEY,                       0xffb2,      spawn,          SHCMD ("whatsapp")},
-	{ MODKEY,                       0xffb3,      spawn,          SHCMD ("spyder")},
+	{0,			0xffb1, spawn,	SHCMD("brave")},
+	{0,			0xffb2,	spawn,	SHCMD("dolphin")},
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
