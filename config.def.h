@@ -20,7 +20,18 @@ static const char *colors[][3]      = {
 };
 
 static const char *const autostart[] = {
-	"st", NULL,
+	"xrandr","--output HDMI2 --auto --right-of HDMI1",NULL,
+	"tcsh", "-c", "spyder", NULL,
+        "thunderbird", NULL,
+        "tcsh", "-c", "whatsapp", NULL,
+	"tcsh", "-c", "thorium",NULL,
+        "texstudio",NULL,
+        "zoom",NULL,
+        "zotero",NULL,
+	"tcsh", "-c", "powerfolder", NULL,
+	"picom", NULL,
+	"feh", "--bg-max $HOME/Pictures/ArchWallpaper.png --bg-max $HOME/Pictures/ArchWallpaper.png", NULL,
+	"/bin/bash", "-c $HOME/dwm/status.sh", NULL,
 	NULL /* terminate */
 };
 
@@ -37,8 +48,15 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
-	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
+	{ "Spyder",     NULL,       NULL,       1 << 0,       False,           0},
+	{ "Thorium-browser",NULL,NULL,1<<1,False,0},
+	{ "thunderbird",  NULL,       NULL,       1 << 2,       False,           0 },
+	{ "whatsapp-desktop-linux",  NULL,       NULL,       1 << 3,       False,           0 },
+	{ "TeXstudio",  NULL,       NULL,       1 << 0,       False,           1 },
+	{ "zoom",  NULL,       NULL,       1 << 1,       False,           1 },
+	{ "Zotero",  NULL,       NULL,       1 << 2,       False,           1 },
+	{ "de-dal33t-Start",  NULL,       NULL,       1 << 3,       1,          1 },
+	{"st-256color",NULL,NULL,1<<8,False,-1},
 };
 
 /* layout(s) */
@@ -55,7 +73,7 @@ static const Layout layouts[] = {
 };
 
 /* key definitions */
-#define MODKEY Mod1Mask
+#define MODKEY Mod4Mask
 #define TAGKEYS(KEY,TAG) \
 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
@@ -63,17 +81,18 @@ static const Layout layouts[] = {
 	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
-#define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
+#define SHCMD(cmd) { .v = (const char*[]){ "/bin/tcsh", "-c", cmd, NULL } }
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
-static const char *termcmd[]  = { "st", NULL };
+static const char *dmenucmd[] = { "/home/kdebre/.local/bin/dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
+static const char *termcmd[]  = { "/home/kdebre/.local/bin/st", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
-	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
+	{ MODKEY,             XK_Return, spawn,          {.v = termcmd } },
+	{ MODKEY,			XK_e,		spawn,	SHCMD("thunar")},
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
@@ -83,7 +102,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
 	{ MODKEY,                       XK_Return, zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
-	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
+	{ MODKEY,		             XK_c,      killclient,     {0} },
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
@@ -91,10 +110,10 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
-	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
-	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
-	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
+	{ MODKEY,                       0xff51,  focusmon,       {.i = -1 } },
+	{ MODKEY,                       0xff53, focusmon,       {.i = +1 } },
+	{ MODKEY|ShiftMask,             0xff51,  tagmon,         {.i = -1 } },
+	{ MODKEY|ShiftMask,             0xff53, tagmon,         {.i = +1 } },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
@@ -105,6 +124,8 @@ static Key keys[] = {
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+	{ MODKEY|ShiftMask, XK_r,      spawn,          SHCMD("systemctl reboot")},
+	{ MODKEY|ShiftMask, XK_s,      spawn,          SHCMD("systemctl shutdown now")},
 };
 
 /* button definitions */

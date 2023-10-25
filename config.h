@@ -20,7 +20,7 @@ static const char *colors[][3]      = {
 };
 
 static const char *const autostart[] = {
-	"xrandr","--output HDMI2 --auto --right-of HDMI1",NULL,
+	"tcsh","-c","xrandr --output HDMI2 --auto --right-of HDMI1",NULL,
 	"tcsh", "-c", "spyder", NULL,
         "thunderbird", NULL,
         "tcsh", "-c", "whatsapp", NULL,
@@ -30,8 +30,8 @@ static const char *const autostart[] = {
         "zotero",NULL,
 	"tcsh", "-c", "powerfolder", NULL,
 	"picom", NULL,
-	"feh", "--bg-max $HOME/Pictures/ArchWallpaper.png --bg-max $HOME/Pictures/ArchWallpaper.png", NULL,
-	"bash", "-c $HOME/dwm/status.sh", NULL,
+	"tcsh","-c","feh --bg-max /home/kdebre/Pictures/ArchWallpaper.png /home/kdebre/Pictures/ArchWallpaper.png", NULL,
+	"/bin/bash"," -c","/home/kdebre/dwm/status.sh", NULL,
 	NULL /* terminate */
 };
 
@@ -91,9 +91,8 @@ static const char *termcmd[]  = { "/home/kdebre/.local/bin/st", NULL };
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
-	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
-	{0,			0xffb1, spawn,	SHCMD("brave")},
-	{0,			0xffb2,	spawn,	SHCMD("dolphin")},
+	{ MODKEY,             XK_Return, spawn,          {.v = termcmd } },
+	{ MODKEY,			XK_e,		spawn,	SHCMD("thunar")},
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
@@ -103,7 +102,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
 	{ MODKEY,                       XK_Return, zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
-	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
+	{ MODKEY,		             XK_c,      killclient,     {0} },
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
@@ -111,10 +110,10 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
-	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
-	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
-	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
+	{ MODKEY,                       0xff51,  focusmon,       {.i = -1 } },
+	{ MODKEY,                       0xff53, focusmon,       {.i = +1 } },
+	{ MODKEY|ShiftMask,             0xff51,  tagmon,         {.i = -1 } },
+	{ MODKEY|ShiftMask,             0xff53, tagmon,         {.i = +1 } },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
@@ -125,8 +124,8 @@ static Key keys[] = {
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
-	{ MODKEY|ControlMask|ShiftMask, XK_r,      spawn,          SHCMD("systemctl reboot")},
-	{ MODKEY|ControlMask|ShiftMask, XK_s,      spawn,          SHCMD("systemctl shutdown now")},
+	{ MODKEY|ShiftMask, XK_r,      spawn,          SHCMD("systemctl reboot")},
+	{ MODKEY|ShiftMask, XK_s,      spawn,          SHCMD("systemctl shutdown now")},
 };
 
 /* button definitions */
