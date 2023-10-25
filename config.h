@@ -20,8 +20,8 @@ static const char *colors[][3]      = {
 };
 
 static const char *const autostart[] = {
-        "tcsh", "-c", "spyder", NULL,
-       /* "tcsh", "-c", "brave", NULL,*/
+	"xrandr","--output HDMI2 --auto --right-of HDMI1",NULL,
+	"tcsh", "-c", "spyder", NULL,
         "thunderbird", NULL,
         "tcsh", "-c", "whatsapp", NULL,
 	"tcsh", "-c", "thorium",NULL,
@@ -29,7 +29,9 @@ static const char *const autostart[] = {
         "zoom",NULL,
         "zotero",NULL,
 	"tcsh", "-c", "powerfolder", NULL,
-	"/bin/bash", "-c", "/home/kdebre/Suckless/dwm/status.sh", NULL,
+	"picom", NULL,
+	"feh", "--bg-max $HOME/Pictures/ArchWallpaper.png --bg-max $HOME/Pictures/ArchWallpaper.png", NULL,
+	"bash", "-c $HOME/dwm/status.sh", NULL,
 	NULL /* terminate */
 };
 
@@ -47,7 +49,6 @@ static const Rule rules[] = {
 	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
 	{ "Spyder",     NULL,       NULL,       1 << 0,       False,           0},
-	/*{ "Brave-browser",     NULL,       NULL,       1 << 1,        False,           0},*/
 	{ "Thorium-browser",NULL,NULL,1<<1,False,0},
 	{ "thunderbird",  NULL,       NULL,       1 << 2,       False,           0 },
 	{ "whatsapp-desktop-linux",  NULL,       NULL,       1 << 3,       False,           0 },
