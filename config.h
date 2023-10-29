@@ -30,7 +30,7 @@ static const char *const autostart[] = {
         "zotero",NULL,
 	"bash", "-c", "powerfolder", NULL,
 	"picom", NULL,
-	"bash","-c","feh --bg-fill $HOME/Downloads/Wallpaper.jpeg $HOME/Downloads/Wallpaper.jpeg", NULL,
+	"bash","-c","feh --bg-fill --randomize  $HOME/wallpaper/ $HOME/wallpaper/", NULL,
 	"bash"," -c","/home/kaleb/dwm/status.sh", NULL,
 	NULL /* terminate */
 };
@@ -125,7 +125,7 @@ static Key keys[] = {
 	TAGKEYS(                        XK_9,                      8)
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
 	{ MODKEY|ShiftMask, XK_r,      spawn,          SHCMD("systemctl reboot")},
-	{ MODKEY|ShiftMask, XK_s,      spawn,          SHCMD("systemctl shutdown now")},
+	{ MODKEY|ShiftMask, XK_s,      spawn,          SHCMD("systemctl poweroff")},
 };
 
 /* button definitions */
