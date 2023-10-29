@@ -20,18 +20,18 @@ static const char *colors[][3]      = {
 };
 
 static const char *const autostart[] = {
-	"tcsh","-c","xrandr --output HDMI2 --auto --right-of HDMI1",NULL,
-	"tcsh", "-c", "spyder", NULL,
+	"bash","-c","xrandr --output HDMI2 --auto --right-of HDMI1",NULL,
+	"bash", "-c", "spyder", NULL,
         "thunderbird", NULL,
-        "tcsh", "-c", "whatsapp", NULL,
-	"tcsh", "-c", "thorium",NULL,
+        "bash", "-c", "whatsapp", NULL,
+	"thorium-browser",NULL,
         "texstudio",NULL,
         "zoom",NULL,
         "zotero",NULL,
-	"tcsh", "-c", "powerfolder", NULL,
+	"bash", "-c", "powerfolder", NULL,
 	"picom", NULL,
-	"tcsh","-c","feh --bg-max /home/kdebre/Pictures/ArchWallpaper.png /home/kdebre/Pictures/ArchWallpaper.png", NULL,
-	"/bin/bash"," -c","/home/kdebre/dwm/status.sh", NULL,
+	"bash","-c","feh --bg-fill $HOME/Downloads/Wallpaper.jpeg $HOME/Downloads/Wallpaper.jpeg", NULL,
+	"bash"," -c","/home/kaleb/dwm/status.sh", NULL,
 	NULL /* terminate */
 };
 
@@ -48,15 +48,15 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "Spyder",     NULL,       NULL,       1 << 0,       False,           0},
+	{ "Spyder",     NULL,       NULL,       1 << 2,       False,           0},
 	{ "Thorium-browser",NULL,NULL,1<<1,False,0},
 	{ "thunderbird",  NULL,       NULL,       1 << 2,       False,           0 },
-	{ "whatsapp-desktop-linux",  NULL,       NULL,       1 << 3,       False,           0 },
-	{ "TeXstudio",  NULL,       NULL,       1 << 0,       False,           1 },
+	{ "whatsapp-desktop-linux",  NULL,       NULL,       1 << 4,       False,           0 },
+	{ "TeXstudio",  NULL,       NULL,       1 << 3,       False,           1 },
 	{ "zoom",  NULL,       NULL,       1 << 1,       False,           1 },
-	{ "Zotero",  NULL,       NULL,       1 << 2,       False,           1 },
-	{ "de-dal33t-Start",  NULL,       NULL,       1 << 3,       1,          1 },
-	{"st-256color",NULL,NULL,1<<8,False,-1},
+	{ "Zotero",  NULL,       NULL,       1 << 3,       False,           1 },
+	{ "de-dal33t-Start",  NULL,       NULL,       1 << 4,       1,          1 },
+	{"st-256color",NULL,NULL,1<<9,False,-1},
 };
 
 /* layout(s) */
@@ -81,12 +81,12 @@ static const Layout layouts[] = {
 	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
-#define SHCMD(cmd) { .v = (const char*[]){ "/bin/tcsh", "-c", cmd, NULL } }
+#define SHCMD(cmd) { .v = (const char*[]){ "/bin/bash", "-c", cmd, NULL } }
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "/home/kdebre/.local/bin/dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
-static const char *termcmd[]  = { "/home/kdebre/.local/bin/st", NULL };
+static const char *dmenucmd[] = { "/home/kaleb/.local/bin/dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
+static const char *termcmd[]  = { "/home/kaleb/.local/bin/st", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
