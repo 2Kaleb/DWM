@@ -20,18 +20,18 @@ static const char *colors[][3]      = {
 };
 
 static const char *const autostart[] = {
-	"tcsh","-c","xrandr --output HDMI2 --auto --right-of HDMI1",NULL,
-	"tcsh","-c", "spyder", NULL,
+	"sh","-c","xrandr --output HDMI2 --auto --right-of HDMI1",NULL,
+	"sh","-c", "spyder", NULL,
         "thunderbird", NULL,
-        "tcsh","-c", "whatsapp", NULL,
-	"tcsh","-c", "thorium",NULL,
+        "sh","-c", "whatsapp", NULL,
+	"sh","-c", "thorium",NULL,
         "texstudio",NULL,
         "zoom",NULL,
         "zotero",NULL,
-	"tcsh","-c", "powerfolder", NULL,
+	"/bin/bash", "-c","/usr/share/powerfolder.sh", NULL,
 	"picom", NULL,
-	"sh","-c","feh --bg-fill --randomize $HOME/Pictures/wallpaper $HOME/Pictures/wallpaper", NULL,
-	"/bin/bash","-c","/home/kdebre/dwm/status.sh", NULL,
+	"sh","-c","feh --bg-fill --randomize $HOME/wallpaper $HOME/wallpaper", NULL,
+	"/bin/bash","-c","$HOME/dwm/status.sh", NULL,
 	NULL /* terminate */
 };
 

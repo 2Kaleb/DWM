@@ -4,7 +4,7 @@ VERSION = 6.3
 # Customize below to fit your system
 
 # paths
-PREFIX = /home/kdebre/.local
+PREFIX = ${HOME}/.local
 MANPREFIX = ${PREFIX}/share/man
 
 X11INC = /usr/X11R6/include
