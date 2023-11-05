@@ -23,15 +23,15 @@ static const char *const autostart[] = {
 	"sh","-c","xrandr --output HDMI2 --auto --right-of HDMI1",NULL,
 	"sh","-c", "spyder", NULL,
         "thunderbird", NULL,
-        "sh","-c", "whatsapp", NULL,
-	"sh","-c", "thorium",NULL,
+        "sh","-c", "flatpak run io.github.mimbrero.WhatsAppDesktop", NULL,
+	"sh","-c", "thorium-browser",NULL,
         "texstudio",NULL,
         "zoom",NULL,
         "zotero",NULL,
-	"/bin/bash", "-c","/usr/share/powerfolder.sh", NULL,
+	"sh", "-c","/usr/share/PowerFolder/PowerFolder-Client.sh", NULL,
 	"picom", NULL,
 	"sh","-c","feh --bg-fill --randomize $HOME/wallpaper $HOME/wallpaper", NULL,
-	"/bin/bash","-c","$HOME/dwm/status.sh", NULL,
+	"sh","-c","$HOME/dwm/status.sh", NULL,
 	NULL /* terminate */
 };
 
@@ -86,8 +86,8 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "/home/kdebre/.local/bin/dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
-static const char *termcmd[]  = { "/home/kdebre/.local/bin/st", NULL };
+static const char *dmenucmd[] = { "/home/kaleb/.local/bin/dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
+static const char *termcmd[]  = { "/home/kaleb/.local/bin/st", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
