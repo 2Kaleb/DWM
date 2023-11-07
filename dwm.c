@@ -20,7 +20,7 @@
  *
  * To understand everything else, start reading main().
  */
-#include <ctype.h> /* for tolower function, very tiny standard library */
+#include <ctype.h> /* for making tab label lowercase, very tiny standard library */
 #include <errno.h>
 #include <locale.h>
 #include <signal.h>
@@ -449,7 +449,7 @@ attachstack(Client *c)
 void
 buttonpress(XEvent *e)
 {
-	unsigned int i, x, click, occ = 0;
+	unsigned int i, x, click;
 	Arg arg = {0};
 	Client *c;
 	Monitor *m;
@@ -464,14 +464,9 @@ buttonpress(XEvent *e)
 	}
 	if (ev->window == selmon->barwin) {
 		i = x = 0;
-		for (c = m->clients; c; c = c->next)
-			occ |= c->tags == 255 ? 0 : c->tags;
-		do {
-			/* do not reserve space for vacant tags */
-			if (!(occ & 1 << i || m->tagset[m->seltags] & 1 << i))
-				continue;
+		do
 			x += tagw[i];
-		} while (ev->x >= x && ++i < LENGTH(tags));
+		while (ev->x >= x && ++i < LENGTH(tags));
 		if (i < LENGTH(tags)) {
 			click = ClkTagBar;
 			arg.ui = 1 << i;
@@ -738,7 +733,7 @@ drawbar(Monitor *m)
 	int boxw = drw->fonts->h / 6 + 2;
 	unsigned int i, occ = 0, urg = 0;
 	Client *c;
-	char tagdisp[64];
+	char taglabel[64];
 	char *masterclientontag[LENGTH(tags)];
 
 	if (!m->showbar)
@@ -755,7 +750,7 @@ drawbar(Monitor *m)
 		masterclientontag[i] = NULL;
 
 	for (c = m->clients; c; c = c->next) {
-		occ |= c->tags == 255 ? 0 : c->tags;
+		occ |= c->tags;
 		if (c->isurgent)
 			urg |= c->tags;
 		for (i = 0; i < LENGTH(tags); i++)
@@ -764,23 +759,23 @@ drawbar(Monitor *m)
 				XGetClassHint(dpy, c->win, &ch);
 				masterclientontag[i] = ch.res_class;
 				if (lcaselbl)
-				masterclientontag[i][0] = tolower(masterclientontag[i][0]);
+					masterclientontag[i][0] = tolower(masterclientontag[i][0]);
 			}
 	}
 	x = 0;
 	for (i = 0; i < LENGTH(tags); i++) {
-		/* do not draw vacant tags */
-		if (!(occ & 1 << i || m->tagset[m->seltags] & 1 << i))
-		continue;
-
 		if (masterclientontag[i])
-			snprintf(tagdisp, 64, ptagf, tags[i], masterclientontag[i]);
+			snprintf(taglabel, 64, ptagf, tags[i], masterclientontag[i]);
 		else
-			snprintf(tagdisp, 64, etagf, tags[i]);
-		masterclientontag[i] = tagdisp;
+			snprintf(taglabel, 64, etagf, tags[i]);
+		masterclientontag[i] = taglabel;
 		tagw[i] = w = TEXTW(masterclientontag[i]);
 		drw_setscheme(drw, scheme[m->tagset[m->seltags] & 1 << i ? SchemeSel : SchemeNorm]);
 		drw_text(drw, x, 0, w, bh, lrpad / 2, masterclientontag[i], urg & 1 << i);
+		if (occ & 1 << i)
+			drw_rect(drw, x + boxs, boxs, boxw, boxw,
+				m == selmon && selmon->sel && selmon->sel->tags & 1 << i,
+				urg & 1 << i);
 		x += w;
 	}
 	w = blw = TEXTW(m->ltsymbol);
@@ -884,7 +879,6 @@ focusmon(const Arg *arg)
 	if ((m = dirtomon(arg->i)) == selmon)
 		return;
 	unfocus(selmon->sel, 0);
-	XWarpPointer(dpy, None, m->barwin, 0, 0, 0, 0, m->mw / 2, m->mh / 2);
 	selmon = m;
 	focus(NULL);
 }
