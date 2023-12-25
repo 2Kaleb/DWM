@@ -21,17 +21,18 @@ static const char *colors[][3]      = {
 
 static const char *const autostart[] = {
 	"sh","-c","xrandr --output HDMI2 --auto --right-of HDMI1",NULL,
-	"tcsh","-c", "conda run spyder", NULL,
+	"sh","-c", "conda run spyder", NULL,
         "thunderbird", NULL,
         "sh","-c", "flatpak run io.github.mimbrero.WhatsAppDesktop", NULL,
-	"tcsh","-c", "thorium-browser",NULL,
+	"sh","-c", "thorium-browser",NULL,
         "texstudio",NULL,
         "zoom",NULL,
         "zotero",NULL,
 	"bash","-c", "/usr/share/PowerFolder/PowerFolder-Client.sh", NULL,
 	"picom", NULL,
-	"sh","-c","feh --bg-fill --randomize $HOME/wallpaper $HOME/wallpaper", NULL,
+	"sh","-c","feh --bg-fill --randomize $HOME/HESSENBOX-DA/MobileUploads/Wallpaper $HOME/HESSENBOX-DA/MobileUploads/Wallpaper", NULL,
 	"bash","-c","$HOME/dwm/status.sh", NULL,
+	"lutris",NULL,
 	NULL /* terminate */
 };
 
@@ -57,7 +58,9 @@ static const Rule rules[] = {
 	{ "TeXstudio",  NULL,       NULL,       1 << 1,       False,           1 },
 	{ "zoom",  NULL,       NULL,       1 << 2,       False,           1 },
 	{ "Zotero",  NULL,       NULL,       1 << 3,       False,           1 },
-	{ "de-dal33t-Start",  NULL,       NULL,       1 << 4,       False,          1 },
+	{ "de-dal33t-Start",  NULL,       NULL,       1 << 4,       True,          1 },
+	{ "League of Legends",  NULL,       NULL,       1 << 5,       True,          0 },
+	{ "Lutris",  NULL,       NULL,       1 << 5,       True,          0 },
 };
 
 /* layout(s) */
@@ -86,8 +89,8 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "/home/kdebre/.local/bin/dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
-static const char *termcmd[]  = { "/home/kdebre/.local/bin/st", NULL };
+static const char *dmenucmd[] = { "/home/kaleb/.local/bin/dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
+static const char *termcmd[]  = { "/home/kaleb/.local/bin/st", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
