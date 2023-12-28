@@ -20,10 +20,10 @@ static const char *colors[][3]      = {
 };
 
 static const char *const autostart[] = {
-	"sh","-c","xrandr --output HDMI2 --auto --right-of HDMI1",NULL,
+	"sh","-c","xrandr --output HDMI-1 --auto --above eDP-1",NULL,
 	"sh","-c", "conda run spyder", NULL,
         "thunderbird", NULL,
-        "sh","-c", "flatpak run io.github.mimbrero.WhatsAppDesktop", NULL,
+        "sh","-c", "$HOME/HESSENBOX-DA/MobileUploads/whatsapp.AppImage", NULL,
 	"sh","-c", "thorium-browser",NULL,
         "texstudio",NULL,
         "zoom",NULL,
@@ -89,14 +89,15 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "/home/kaleb/.local/bin/dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
-static const char *termcmd[]  = { "/home/kaleb/.local/bin/st", NULL };
+static const char *dmenucmd[] = { "/home/kalebdebre/.local/bin/dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
+static const char *termcmd[]  = { "/home/kalebdebre/.local/bin/st", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY,             XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,			XK_e,		spawn,	SHCMD("thunar")},
+	{ MODKEY,			XK_l,		spawn,	SHCMD("spectacle -r")},
 	{ MODKEY,			0xff52,		spawn,	SHCMD("pactl set-sink-volume @DEFAULT_SINK@ +5%")},
 	{ MODKEY,			0xff54,		spawn,	SHCMD("pactl set-sink-volume @DEFAULT_SINK@ -5%")},
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
