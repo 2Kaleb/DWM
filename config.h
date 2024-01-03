@@ -21,6 +21,7 @@ static const char *colors[][3]      = {
 
 static const char *const autostart[] = {
 	"sh","-c","xrandr --output HDMI-1 --auto --above eDP-1",NULL,
+	"sh","-c","feh --bg-fill --randomize $HOME/HESSENBOX-DA/MobileUploads/Wallpaper $HOME/HESSENBOX-DA/MobileUploads/Wallpaper", NULL,
 	"sh","-c", "conda run spyder", NULL,
         "thunderbird", NULL,
         "sh","-c", "$HOME/HESSENBOX-DA/MobileUploads/whatsapp.AppImage", NULL,
@@ -30,7 +31,6 @@ static const char *const autostart[] = {
         "zotero",NULL,
 	"bash","-c", "/usr/share/PowerFolder/PowerFolder-Client.sh", NULL,
 	"picom", NULL,
-	"sh","-c","feh --bg-fill --randomize $HOME/HESSENBOX-DA/MobileUploads/Wallpaper $HOME/HESSENBOX-DA/MobileUploads/Wallpaper", NULL,
 	"bash","-c","$HOME/dwm/status.sh", NULL,
 	"lutris",NULL,
 	NULL /* terminate */
@@ -97,7 +97,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY,             XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,			XK_e,		spawn,	SHCMD("thunar")},
-	{ MODKEY,			XK_l,		spawn,	SHCMD("spectacle -r")},
+	{ MODKEY,			XK_o,		spawn,	SHCMD("spectacle -r")},
 	{ MODKEY,			0xff52,		spawn,	SHCMD("pactl set-sink-volume @DEFAULT_SINK@ +5%")},
 	{ MODKEY,			0xff54,		spawn,	SHCMD("pactl set-sink-volume @DEFAULT_SINK@ -5%")},
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
