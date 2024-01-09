@@ -20,8 +20,7 @@ static const char *colors[][3]      = {
 };
 
 static const char *const autostart[] = {
-	"sh","-c","xrandr --output HDMI-1 --auto --above eDP-1",NULL,
-	"sh","-c","feh --bg-fill --randomize $HOME/HESSENBOX-DA/MobileUploads/Wallpaper $HOME/HESSENBOX-DA/MobileUploads/Wallpaper", NULL,
+	"sh","-c","xrandr --output HDMI-1 --auto --above eDP-1 && feh --bg-fill --randomize $HOME/HESSENBOX-DA/MobileUploads/Wallpaper $HOME/HESSENBOX-DA/MobileUploads/Wallpaper",NULL,
 	"sh","-c", "conda run spyder", NULL,
         "thunderbird", NULL,
         "sh","-c", "$HOME/HESSENBOX-DA/MobileUploads/whatsapp.AppImage", NULL,
@@ -60,7 +59,7 @@ static const Rule rules[] = {
 	{ "Zotero",  NULL,       NULL,       1 << 3,       False,           1 },
 	{ "de-dal33t-Start",  NULL,       NULL,       1 << 4,       True,          1 },
 	{ "League of Legends",  NULL,       NULL,       1 << 5,       True,          0 },
-	{ "Lutris",  NULL,       NULL,       1 << 5,       True,          0 },
+	{ "Lutris",  NULL,       NULL,       1 << 5,       False,          0 },
 };
 
 /* layout(s) */
