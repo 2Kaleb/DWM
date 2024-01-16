@@ -20,18 +20,21 @@ static const char *colors[][3]      = {
 };
 
 static const char *const autostart[] = {
+	"sh","-c","xrandr --output HDMI-1 --auto --above eDP-1 && feh --bg-fill --randomize $HOME/HESSENBOX-DA/MobileUploads/Wallpaper $HOME/HESSENBOX-DA/MobileUploads/Wallpaper",NULL,
+	"sh","-c", "conda run spyder", NULL,
 	"sh","-c","xrandr --output HDMI2 --auto --right-of HDMI1",NULL,
+	"sh","-c","feh --bg-fill --randomize $HOME/HESSENBOX-DA/MobileUploads/Wallpaper $HOME/HESSENBOX-DA/MobileUploads/Wallpaper", NULL,
 	"tcsh","-c", "conda run spyder", NULL,
         "thunderbird", NULL,
-        "tcsh","-c", "flatpak run io.github.mimbrero.WhatsAppDesktop", NULL,
+        "sh","-c", "$HOME/HESSENBOX-DA/MobileUploads/whatsapp.AppImage", NULL,
 	"tcsh","-c", "thorium-browser",NULL,
         "texstudio",NULL,
         "zoom",NULL,
         "zotero",NULL,
 	"bash","-c", "/usr/share/PowerFolder/PowerFolder-Client.sh", NULL,
 	"picom", NULL,
-	"sh","-c","feh --bg-fill --randomize $HOME/wallpaper $HOME/wallpaper", NULL,
 	"bash","-c","$HOME/dwm/status.sh", NULL,
+	"lutris",NULL,
 	NULL /* terminate */
 };
 
@@ -48,16 +51,20 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "Spyder", NULL,    "Spyder",         1 << 0,       False,           0},
-	{ "Spyder",     NULL,  "NumPy",       1 << 0,       True,           1},
-	{ " ",    " ", "Figure" ,       1 << 0,       True,           1},
+	{ "Spyder",     "Spyder",  NULL,       1 << 0,       True,           0},
+	{ "Spyder", "Spyder",    "Spyder",         1 << 0,       False,           1},
+	{ " ",    " ", "Figure" ,       1 << 0,       True,           0},
 	{ "Thorium-browser",NULL,NULL,1<<1,False,0},
 	{ "thunderbird",  NULL,       NULL,       1 << 2,       False,           0 },
 	{ "whatsapp-desktop-linux",  NULL,       NULL,       1 << 3,       False,           0 },
 	{ "TeXstudio",  NULL,       NULL,       1 << 1,       False,           1 },
 	{ "zoom",  NULL,       NULL,       1 << 2,       False,           1 },
 	{ "Zotero",  NULL,       NULL,       1 << 3,       False,           1 },
-	{ "de-dal33t-Start",  NULL,       NULL,       1 << 4,       False,          1 },
+	{ "de-dal33t-Start",  NULL,       NULL,       1 << 4,       True,          1 },
+	{ "League of Legends",  NULL,       NULL,       1 << 5,       True,          0 },
+	{ "Lutris",  NULL,       NULL,       1 << 5,       False,          0 },
+	{ "Lutris",  NULL,       NULL,       1 << 5,       True,          0 },
+    {NULL,NULL,"FirstSpirit",1<<4,False,0},
 };
 
 /* layout(s) */
@@ -94,6 +101,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY,             XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,			XK_e,		spawn,	SHCMD("thunar")},
+	{ MODKEY,			XK_o,		spawn,	SHCMD("spectacle -r")},
 	{ MODKEY,			0xff52,		spawn,	SHCMD("pactl set-sink-volume @DEFAULT_SINK@ +5%")},
 	{ MODKEY,			0xff54,		spawn,	SHCMD("pactl set-sink-volume @DEFAULT_SINK@ -5%")},
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
