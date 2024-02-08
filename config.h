@@ -20,18 +20,14 @@ static const char *colors[][3]      = {
 };
 
 static const char *const autostart[] = {
-	"sh","-c","xrandr --output HDMI2 --auto --right-of HDMI1 && feh --bg-fill --randomize $HOME/HESSENBOX-DA/MobileUploads/Wallpaper $HOME/HESSENBOX-DA/MobileUploads/Wallpaper",NULL,
-	"tcsh","-c", "conda run spyder", NULL,
-        "thunderbird", NULL,
-        "sh","-c", "$HOME/HESSENBOX-DA/MobileUploads/whatsapp.AppImage", NULL,
-	"tcsh","-c", "thorium-browser",NULL,
-        "texstudio",NULL,
-        "zoom",NULL,
-        "zotero",NULL,
-	"bash","-c", "/usr/share/PowerFolder/PowerFolder-Client.sh", NULL,
-	"picom", NULL,
-	"bash","-c","$HOME/dwm/status.sh", NULL,
-	"lutris",NULL,
+	"sh","-c","xrandr --output HDMI2 --auto --right-of HDMI1",NULL,
+    "tcsh","-c","picom &;feh --bg-fill --randomize $HOME/dwm/wallpaper &",NULL,
+    "tcsh","-c","conda run spyder &;thorium-browser &", NULL,
+    "tcsh","-c","thunderbird &;texstudio &;zoom &;zotero &", NULL,
+    "sh","-c","$HOME/Downloads/whatsapp.AppImage &", NULL,
+	"bash","-c","/usr/share/PowerFolder/PowerFolder-Client.sh &", NULL,
+	"tcsh","-c","$HOME/dwm/wmname LG3D &; mlab -d &", NULL,
+    "bash","-c","$HOME/dwm/status.sh &", NULL,
 	NULL /* terminate */
 };
 
@@ -50,16 +46,16 @@ static const Rule rules[] = {
 	/* class      instance    title       tags mask     isfloating   monitor */
 	{ "Spyder",     "Spyder",  NULL,       1 << 0,       True,           0},
 	{ "Spyder", "Spyder",    "Spyder",         1 << 0,       False,           1},
-	{ " ",    " ", "Figure" ,       1 << 0,       True,           0},
+	{ NULL,    NULL, "Figure" ,       1 << 0,       True,           0},
 	{ "Thorium-browser",NULL,NULL,1<<1,False,0},
 	{ "thunderbird",  NULL,       NULL,       1 << 2,       False,           0 },
 	{ "whatsapp-desktop-linux",  NULL,       NULL,       1 << 3,       False,           0 },
 	{ "TeXstudio",  NULL,       NULL,       1 << 1,       False,           1 },
 	{ "zoom",  NULL,       NULL,       1 << 2,       False,           1 },
 	{ "Zotero",  NULL,       NULL,       1 << 3,       False,           1 },
-	{ "de-dal33t-Start",  NULL,       NULL,       1 << 4,       True,          1 },
-	{ "League of Legends",  NULL,       NULL,       1 << 5,       True,          0 },
+	{ "de-dal33t-Start",  NULL,       NULL,       1 << 4,       True,          0 },
 	{ "Lutris",  NULL,       NULL,       1 << 5,       False,          0 },
+	{ NULL,  NULL,     "MATLAB",       1 << 4,       False,          1 },
     {NULL,NULL,"FirstSpirit",1<<4,False,0},
 };
 
@@ -100,6 +96,7 @@ static Key keys[] = {
 	{ MODKEY,			XK_o,		spawn,	SHCMD("spectacle -r")},
 	{ MODKEY,			0xff52,		spawn,	SHCMD("pactl set-sink-volume @DEFAULT_SINK@ +5%")},
 	{ MODKEY,			0xff54,		spawn,	SHCMD("pactl set-sink-volume @DEFAULT_SINK@ -5%")},
+	{ MODKEY,			XK_s,  		spawn,	SHCMD("/home/kdebre/Downloads/marktext-x86_64.AppImage /home/kdebre/HESSENBOX-DA/Exodia/students.md")},
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
