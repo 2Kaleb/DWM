@@ -1,13 +1,9 @@
-#/bin/sh
+#!/bin/bash
 
-status () { 
-
-	echo -n "BAT: $(acpi | awk '{print $4}' | sed s/,//) | $(date '+%d.%m.%Y %H:%M:%S')"
-}
-
-while :; do
-	
-	xsetroot -name "$(status)"
+x=$(uptime -p)
+while true; do
+y=$(date '+%d.%m.%Y %H:%M:%S')
+xsetroot -name "$x $y"
 	sleep 1
 
 done

@@ -21,12 +21,13 @@ static const char *colors[][3]      = {
 
 static const char *const autostart[] = {
 	"sh","-c","xrandr --output HDMI2 --auto --right-of HDMI1",NULL,
-    "tcsh","-c","picom &;feh --bg-fill --randomize $HOME/dwm/wallpaper &",NULL,
-    "tcsh","-c","conda run spyder &;thorium-browser &", NULL,
-    "tcsh","-c","thunderbird &;texstudio &;zoom &;zotero &", NULL,
+    "tcsh","-c","picom --config $HOME/.config/picom/picom.conf &;feh --bg-fill --randomize $HOME/dwm/wallpaper &",NULL,
+    "tcsh","-c","conda run spyder &",NULL,
+    "tcsh","-c","thunderbird &;texstudio &;zoom &;zotero &;thorium-browser &;obsidian &", NULL,
     "sh","-c","$HOME/Downloads/whatsapp.AppImage &", NULL,
 	"bash","-c","/usr/share/PowerFolder/PowerFolder-Client.sh &", NULL,
-	"tcsh","-c","$HOME/dwm/wmname LG3D &; mlab -d &", NULL,
+	"tcsh","-c","$HOME/dwm/wmname LG3D &", NULL,
+    "tcsh","-c","mlab -d &", NULL,
     "bash","-c","$HOME/dwm/status.sh &", NULL,
 	NULL /* terminate */
 };
@@ -44,19 +45,21 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "Spyder",     "Spyder",  NULL,       1 << 0,       True,           0},
+	{ "Spyder","Spyder",  NULL,       1 << 1,       True,           0},
 	{ "Spyder", "Spyder",    "Spyder",         1 << 0,       False,           1},
-	{ NULL,    NULL, "Figure" ,       1 << 0,       True,           0},
-	{ "Thorium-browser",NULL,NULL,1<<1,False,0},
-	{ "thunderbird",  NULL,       NULL,       1 << 2,       False,           0 },
-	{ "whatsapp-desktop-linux",  NULL,       NULL,       1 << 3,       False,           0 },
-	{ "TeXstudio",  NULL,       NULL,       1 << 1,       False,           1 },
-	{ "zoom",  NULL,       NULL,       1 << 2,       False,           1 },
-	{ "Zotero",  NULL,       NULL,       1 << 3,       False,           1 },
-	{ "de-dal33t-Start",  NULL,       NULL,       1 << 4,       True,          0 },
-	{ "Lutris",  NULL,       NULL,       1 << 5,       False,          0 },
+	{ NULL,    NULL, "Figure" ,       1 << 1,       True,           0},
+	{ "Thorium-browser",NULL,NULL,1<<2,False,0},
+	{ "thunderbird",  NULL,       NULL,       1 << 3,       False,        1   },
+	{ "obsidian",  NULL,       NULL,       1 << 4,       False,        0 },
+	{ "de-dal33t-Start",  NULL,       NULL,       1 << 7,      False,      0 },
+	{ "whatsapp-desktop-linux",  NULL,       NULL,       1 << 8,    False,      0 },
+    	{NULL,NULL,"FirstSpirit",1<<5,False,0},
+	{ "Lutris",  NULL,       NULL,       1 << 6,       False,     0 },
+	{ "TeXstudio",  NULL,       NULL,       1 << 1,       False,      1 },
+	{ "zoom",  NULL,       NULL,       1 << 2,       False,       1 },
+	{ "Zotero",  NULL,       NULL,       1 << 3,       True,   0 },
 	{ NULL,  NULL,     "MATLAB",       1 << 4,       False,          1 },
-    {NULL,NULL,"FirstSpirit",1<<4,False,0},
+
 };
 
 /* layout(s) */
