@@ -20,6 +20,7 @@ static const char *colors[][3]      = {
 };
 
 static const char *const autostart[] = {
+	"tcsh","-c","firefox &",NULL,
 	"sh","-c","xrandr --output HDMI2 --auto --right-of HDMI1",NULL,
     "tcsh","-c","picom --config $HOME/.config/picom/picom.conf &;feh --bg-fill --randomize $HOME/dwm/wallpaper &",NULL,
     "tcsh","-c","conda run spyder &",NULL,
@@ -48,6 +49,7 @@ static const Rule rules[] = {
 	{ "Spyder","Spyder",  NULL,       1 << 1,       True,           0},
 	{ "Spyder", "Spyder",    "Spyder",         1 << 0,       False,           1},
 	{ NULL,    NULL, "Figure" ,       1 << 1,       True,           0},
+	{ NULL,    "firefox", NULL ,       1 << 5,       False,           0},
 	{ "Thorium-browser",NULL,NULL,1<<2,False,0},
 	{ "thunderbird",  NULL,       NULL,       1 << 3,       False,        1   },
 	{ "obsidian",  NULL,       NULL,       1 << 4,       False,        0 },
