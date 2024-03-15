@@ -46,22 +46,21 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "Spyder","Spyder",  NULL,       1 << 1,       True,           0},
-	{ "Spyder", "Spyder",    "Spyder",         1 << 0,       False,           1},
-	{ NULL,    NULL, "Figure" ,       1 << 1,       True,           0},
-	{ NULL,    "firefox", NULL ,       1 << 5,       False,           0},
 	{ "Thorium-browser",NULL,NULL,1<<2,False,0},
-	{ "thunderbird",  NULL,       NULL,       1 << 3,       False,        1   },
+	{ "firefox",    NULL, NULL ,       1 << 3,       False,           0},
 	{ "obsidian",  NULL,       NULL,       1 << 4,       False,        0 },
+	{ "Zotero",  NULL,       NULL,       1 << 3,       False,   0 },
+    	{NULL,NULL,"FirstSpirit",1<<5,False,0},
 	{ "de-dal33t-Start",  NULL,       NULL,       1 << 7,      False,      0 },
 	{ "whatsapp-desktop-linux",  NULL,       NULL,       1 << 8,    False,      0 },
-    	{NULL,NULL,"FirstSpirit",1<<5,False,0},
-	{ "Lutris",  NULL,       NULL,       1 << 6,       False,     0 },
+	/*#######################################################################*/
+	{ "Spyder","Spyder",  NULL,       1 << 1,       True,           0},
+	{ NULL,    NULL, "Figure" ,       1 << 1,       True,           0},
+	{ "Spyder", "Spyder",    "Spyder",         1 << 0,       False,           1},
 	{ "TeXstudio",  NULL,       NULL,       1 << 1,       False,      1 },
 	{ "zoom",  NULL,       NULL,       1 << 2,       False,       1 },
-	{ "Zotero",  NULL,       NULL,       1 << 3,       True,   0 },
-	{ NULL,  NULL,     "MATLAB",       1 << 4,       False,          1 },
-
+	{ "thunderbird",  NULL,       NULL,       1 << 3,       False,        1   },
+	{ NULL,  NULL,     "MATLAB",       1 << 5,       False,          1 },
 };
 
 /* layout(s) */
