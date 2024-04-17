@@ -2,6 +2,7 @@
 
 /* appearance */
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
+static const unsigned int gappx     = 10;        /* gaps between windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
@@ -20,13 +21,14 @@ static const char *colors[][3]      = {
 };
 
 static const char *const autostart[] = {
-	"sh","-c","xrandr --output HDMI2 --auto --right-of HDMI1",NULL,
-    "tcsh","-c","picom &;feh --bg-fill --randomize $HOME/dwm/wallpaper &",NULL,
-    "tcsh","-c","conda run spyder &;thorium-browser &", NULL,
-    "tcsh","-c","thunderbird &;texstudio &;zoom &;zotero &", NULL,
-    "sh","-c","$HOME/Downloads/whatsapp.AppImage &", NULL,
+	"tcsh","-c","firefox &",NULL,
+	"sh","-c","xrandr --output HDMI2 --right-of HDMI1",NULL,
+    "tcsh","-c","picom --config $HOME/.config/picom/picom.conf &;feh --bg-fill --randomize $HOME/dwm/wallpaper &",NULL,
+    "tcsh","-c","conda run spyder &",NULL,
+    "tcsh","-c","zotero &;thunderbird &;texstudio &;zoom &;thorium-browser &;obsidian &", NULL,
+/*	"tcsh","-c","$HOME/Zotero/zotero &", NULL,*/
+    "sh","-c","$HOME/whatsapp.AppImage &", NULL,
 	"bash","-c","/usr/share/PowerFolder/PowerFolder-Client.sh &", NULL,
-	"tcsh","-c","$HOME/dwm/wmname LG3D &", NULL,
     "tcsh","-c","mlab -d &", NULL,
     "bash","-c","$HOME/dwm/status.sh &", NULL,
 	NULL /* terminate */
@@ -45,25 +47,25 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "Spyder", "Spyder",    "Spyder",         1 << 0,       False,           1},
+	{ "Thorium-browser",NULL,NULL,1<<1,False,0},
+	{ "firefox",    NULL, NULL ,       1 << 4,       False,           0},
+	{ "obsidian",  NULL,       NULL,       1 << 3,       False,        0 },
+	{ "Zotero",  NULL,       NULL,       1 << 2,       False,   0 },
+    	{NULL,NULL,"FirstSpirit",1<<6,False,0},
+	{ "de-dal33t-Start",  NULL,       NULL,       1 << 7,      False,      0 },
+	{ "whatsapp-desktop-linux",  NULL,       NULL,       1 << 8,    False,      0 },
+	/*#######################################################################*/
 	{ "Spyder","Spyder",  NULL,       1 << 1,       True,           0},
 	{ NULL,    NULL, "Figure" ,       1 << 1,       True,           0},
-	{ "Eog",    NULL,NULL ,       1 << 1,       True,           0},
-	{ "Thorium-browser",NULL,NULL,1<<2,False,0},
-	{ "thunderbird",  NULL,       NULL,       1 << 3,       False,           0 },
-	{ "whatsapp-desktop-linux",  NULL,       NULL,       1 << 8,       False,           0 },
-	{ "de-dal33t-Start",  NULL,       NULL,       1 << 7,      False,          0 },
-    {NULL,NULL,"FirstSpirit",1<<4,False,0},
-	{ "Lutris",  NULL,       NULL,       1 << 6,       False,          0 },
-	{ "TeXstudio",  NULL,       NULL,       1 << 1,       False,           1 },
-	{ "zoom",  NULL,       NULL,       1 << 2,       False,           1 },
-	{ "Zotero",  NULL,       NULL,       1 << 3,       False,           1 },
-	{ NULL,  NULL,     "MATLAB",       1 << 4,       False,          1 },
-
+	{ "Spyder", "Spyder",    "Spyder",         1 << 0,       False,           1},
+	{ "TeXstudio",  NULL,       NULL,       1 << 1,       False,      1 },
+	{ "zoom",  NULL,       NULL,       1 << 2,       False,       1 },
+	{ "thunderbird",  NULL,       NULL,       1 << 3,       False,        1   },
+	{ NULL,  NULL,     "MATLAB",       1 << 5,       False,          1 },
 };
 
 /* layout(s) */
-static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
+static const float mfact     = 0.5; /* factor of master area size [0.05..0.95] */
 static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
 static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen window */
@@ -99,7 +101,6 @@ static Key keys[] = {
 	{ MODKEY,			XK_o,		spawn,	SHCMD("spectacle -r")},
 	{ MODKEY,			0xff52,		spawn,	SHCMD("pactl set-sink-volume @DEFAULT_SINK@ +5%")},
 	{ MODKEY,			0xff54,		spawn,	SHCMD("pactl set-sink-volume @DEFAULT_SINK@ -5%")},
-	{ MODKEY,			XK_s,  		spawn,	SHCMD("/home/kdebre/Downloads/marktext-x86_64.AppImage /home/kdebre/HESSENBOX-DA/Exodia/students.md")},
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
@@ -121,6 +122,9 @@ static Key keys[] = {
 	{ MODKEY,                       0xff53, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             0xff51,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             0xff53, tagmon,         {.i = +1 } },
+	{ MODKEY,                       XK_minus,  setgaps,        {.i = -1 } },
+	{ MODKEY,                       XK_plus,  setgaps,        {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_plus,  setgaps,        {.i = 0  } },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
