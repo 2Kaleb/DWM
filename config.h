@@ -21,15 +21,12 @@ static const char *colors[][3]      = {
 };
 
 static const char *const autostart[] = {
-	"tcsh","-c","firefox &",NULL,
 	"sh","-c","xrandr --output HDMI2 --right-of HDMI1",NULL,
     "tcsh","-c","picom --config $HOME/.config/picom/picom.conf &;feh --bg-fill --randomize $HOME/dwm/wallpaper &",NULL,
     "tcsh","-c","conda run spyder &",NULL,
-    "tcsh","-c","zotero &;thunderbird &;texstudio &;zoom &;thorium-browser &;obsidian &", NULL,
-/*	"tcsh","-c","$HOME/Zotero/zotero &", NULL,*/
+    "tcsh","-c","firefox &;zotero &;thunderbird &;texstudio &;zoom &;thorium-browser &;obsidian &; spotify &; mlab -d &", NULL,
     "sh","-c","$HOME/whatsapp.AppImage &", NULL,
 	"bash","-c","/usr/share/PowerFolder/PowerFolder-Client.sh &", NULL,
-    "tcsh","-c","mlab -d &", NULL,
     "bash","-c","$HOME/dwm/status.sh &", NULL,
 	NULL /* terminate */
 };
@@ -55,13 +52,14 @@ static const Rule rules[] = {
 	{ "de-dal33t-Start",  NULL,       NULL,       1 << 7,      False,      0 },
 	{ "whatsapp-desktop-linux",  NULL,       NULL,       1 << 8,    False,      0 },
 	/*#######################################################################*/
-	{ "Spyder","Spyder",  NULL,       1 << 1,       True,           0},
-	{ NULL,    NULL, "Figure" ,       1 << 1,       True,           0},
+	{ "Spyder","Spyder",  NULL,       1 << 0,       True,           0},
+	{ NULL,    NULL, "Figure" ,       1 << 0,       True,           0},
 	{ "Spyder", "Spyder",    "Spyder",         1 << 0,       False,           1},
 	{ "TeXstudio",  NULL,       NULL,       1 << 1,       False,      1 },
+	{ "Spotify",  NULL,       NULL,       1 << 5,   False,      1 },
 	{ "zoom",  NULL,       NULL,       1 << 2,       False,       1 },
 	{ "thunderbird",  NULL,       NULL,       1 << 3,       False,        1   },
-	{ NULL,  NULL,     "MATLAB",       1 << 5,       False,          1 },
+	{ NULL,  NULL,     "MATLAB",       1 << 4,       False,          1 },
 };
 
 /* layout(s) */
