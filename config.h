@@ -21,11 +21,14 @@ static const char *colors[][3]      = {
 };
 
 static const char *const autostart[] = {
-	"sh","-c","xrandr --output HDMI2 --right-of HDMI1",NULL,
+    "sh","-c","xrandr --output HDMI2 --right-of HDMI1",NULL,
     "tcsh","-c","picom --config $HOME/.config/picom/picom.conf &;feh --bg-fill --randomize $HOME/dwm/wallpaper &",NULL,
     "tcsh","-c","conda run spyder &",NULL,
-    "tcsh","-c","firefox &;zotero &;thunderbird &;texstudio &;zoom &;thorium-browser &;obsidian &; spotify &; mlab -d &", NULL,
-    "sh","-c","$HOME/whatsapp.AppImage &", NULL,
+    "tcsh","-c","firefox &;thunderbird &;texstudio &;zoom &;thorium-browser &;obsidian &; mlab -d &;github-desktop &;remmina", NULL,
+    "sh","-c","$HOME/whatsapp.AppImage", NULL,
+    "tcsh","-c","$HOME/.local/share/Zotero/zotero", NULL,
+   /* "tcsh","-c","$HOME/.local/share/FSLauncher/FSLauncher", NULL,*/
+    "sh","-c","$HOME/cursor.AppImage &", NULL,
 	"bash","-c","/usr/share/PowerFolder/PowerFolder-Client.sh &", NULL,
     "bash","-c","$HOME/dwm/status.sh &", NULL,
 	NULL /* terminate */
@@ -44,22 +47,25 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "Thorium-browser",NULL,NULL,1<<1,False,0},
-	{ "firefox",    NULL, NULL ,       1 << 4,       False,           0},
-	{ "obsidian",  NULL,       NULL,       1 << 3,       False,        0 },
-	{ "Zotero",  NULL,       NULL,       1 << 2,       False,   0 },
-    	{NULL,NULL,"FirstSpirit",1<<6,False,0},
-	{ "de-dal33t-Start",  NULL,       NULL,       1 << 7,      False,      0 },
-	{ "whatsapp-desktop-linux",  NULL,       NULL,       1 << 8,    False,      0 },
-	/*#######################################################################*/
 	{ "Spyder","Spyder",  NULL,       1 << 0,       True,           0},
-	{ NULL,    NULL, "Figure" ,       1 << 0,       True,           0},
+	{ NULL,    NULL, "Figure" ,       1 << 0,       False,           0},
+	{ "Thorium-browser",NULL,NULL,1<<1,False,0},
+	{ "Zotero",  NULL,       NULL,       1 << 2,       False,   0 },
+	{ "obsidian",  NULL,       NULL,       1 << 3,       False,        0 },
+	{ "firefox",    NULL, NULL ,       1 << 4,       False,           0},
+	{ "remmina",    NULL, NULL ,       1 << 7,       True,           0},
+	{ "GitHub Desktop",    NULL, NULL ,       1 << 8,       False,           0},
+	/*#######################################################################*/
 	{ "Spyder", "Spyder",    "Spyder",         1 << 0,       False,           1},
 	{ "TeXstudio",  NULL,       NULL,       1 << 1,       False,      1 },
-	{ "Spotify",  NULL,       NULL,       1 << 5,   False,      1 },
 	{ "zoom",  NULL,       NULL,       1 << 2,       False,       1 },
 	{ "thunderbird",  NULL,       NULL,       1 << 3,       False,        1   },
 	{ NULL,  NULL,     "MATLAB",       1 << 4,       False,          1 },
+	{ "Code",  "code",       NULL,       1 << 5,   False,      1 },
+	{ "Cursor",  "cursor",       NULL,       1 << 5,   False,      1 },
+	{NULL,NULL,"FirstSpirit",1<<8,False,1},
+	{ "de-dal33t-Start",  NULL,       NULL,       1 << 8,      False,      1 },
+	{ "whatsapp-desktop-linux",  NULL,       NULL,       1 << 8,    False,     1 },
 };
 
 /* layout(s) */
@@ -93,10 +99,10 @@ static const char *termcmd[]  = { "/home/kdebre/.local/bin/st", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
+	{ MODKEY,                       XK_s,      spawn,          {.v = dmenucmd } },
 	{ MODKEY,             XK_Return, spawn,          {.v = termcmd } },
-	{ MODKEY,			XK_e,		spawn,	SHCMD("thunar")},
-	{ MODKEY,			XK_o,		spawn,	SHCMD("spectacle -r")},
+	{ MODKEY,			XK_e,		spawn,	SHCMD("nautilus")},
+	{ MODKEY,			XK_p,		spawn,	SHCMD("/home/kdebre/Flameshot.AppImage gui")},
 	{ MODKEY,			0xff52,		spawn,	SHCMD("pactl set-sink-volume @DEFAULT_SINK@ +5%")},
 	{ MODKEY,			0xff54,		spawn,	SHCMD("pactl set-sink-volume @DEFAULT_SINK@ -5%")},
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
