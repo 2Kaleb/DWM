@@ -2,13 +2,13 @@
 
 /* appearance */
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
-static const unsigned int gappx     = 10;        /* gaps between windows */
+static const unsigned int gappx     = 14;        /* gaps between windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const Bool viewontag         = True;     /* Switch view on tag switch */
-static const char *fonts[]          = { "monospace:size=10" };
-static const char dmenufont[]       = "monospace:size=10";
+static const char *fonts[]          = { "monospace:size=6" };
+static const char dmenufont[]       = "monospace:size=6";
 static const char col_gray1[]       = "#2E3440";
 static const char col_gray2[]       = "#3B4252";
 static const char col_gray3[]       = "#D8DEE9";
@@ -21,17 +21,8 @@ static const char *colors[][3]      = {
 };
 
 static const char *const autostart[] = {
-	"tcsh","-c","firefox &",NULL,
-	"sh","-c","xrandr --output HDMI2 --right-of HDMI1",NULL,
-    "tcsh","-c","picom --config $HOME/.config/picom/picom.conf &;feh --bg-fill --randomize $HOME/dwm/wallpaper &",NULL,
-    "tcsh","-c","conda run spyder &",NULL,
-    "tcsh","-c","zotero &;thunderbird &;texstudio &;zoom &;thorium-browser &;obsidian &", NULL,
-/*	"tcsh","-c","$HOME/Zotero/zotero &", NULL,*/
-    "sh","-c","$HOME/whatsapp.AppImage &", NULL,
-	"bash","-c","/usr/share/PowerFolder/PowerFolder-Client.sh &", NULL,
-    "tcsh","-c","mlab -d &", NULL,
-    "bash","-c","$HOME/dwm/status.sh &", NULL,
-	NULL /* terminate */
+	"bash", "-c", "${HOME}/dwm/autostart.sh",NULL,
+    NULL /* terminate */
 };
 
 /* tagging */
@@ -47,21 +38,24 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "Thorium-browser",NULL,NULL,1<<1,False,0},
-	{ "firefox",    NULL, NULL ,       1 << 4,       False,           0},
-	{ "obsidian",  NULL,       NULL,       1 << 3,       False,        0 },
-	{ "Zotero",  NULL,       NULL,       1 << 2,       False,   0 },
-    	{NULL,NULL,"FirstSpirit",1<<6,False,0},
-	{ "de-dal33t-Start",  NULL,       NULL,       1 << 7,      False,      0 },
-	{ "whatsapp-desktop-linux",  NULL,       NULL,       1 << 8,    False,      0 },
+	{ "Spyder","Spyder",  NULL,       1 << 0,       True,           0},
+	{ NULL,    NULL, "Figure" ,       1 << 0,       False,           0},
+	{ "floorp",    NULL, NULL ,       1 << 1,       False,           0},
+	{ "sioyek",    NULL, NULL ,       1 << 2,       False,           0},
+	{ "Zotero",  NULL,       NULL,       1 <<3,       False,   0 },
+	{ "obsidian",  NULL,       NULL,       1 << 4,       False,        0 },
+	{ "Thorium-browser",NULL,NULL,1<<5,False,0},
+	/*{ "firefox",    NULL, NULL ,       1 << 4,       False,           0},*/
+	{ "remmina",    NULL, NULL ,       1 << 7,       True,           0},
+	{ "GitHub Desktop",    NULL, NULL ,       1 << 8,       False,           0},
 	/*#######################################################################*/
-	{ "Spyder","Spyder",  NULL,       1 << 1,       True,           0},
-	{ NULL,    NULL, "Figure" ,       1 << 1,       True,           0},
 	{ "Spyder", "Spyder",    "Spyder",         1 << 0,       False,           1},
-	{ "TeXstudio",  NULL,       NULL,       1 << 1,       False,      1 },
-	{ "zoom",  NULL,       NULL,       1 << 2,       False,       1 },
 	{ "thunderbird",  NULL,       NULL,       1 << 3,       False,        1   },
-	{ NULL,  NULL,     "MATLAB",       1 << 5,       False,          1 },
+	{ "zoom",  NULL,       NULL,       1 << 4,       False,       1 },
+	{ "MATLAB",  NULL,       NULL,       1 << 6,       False,        1   },
+	{ "vesktop",  "vesktop",       NULL,       1 << 7,   False,      1 },
+	{ "de-dal33t-Start",  NULL,       NULL,       1 << 8,      False,      1 },
+	{ "whatsapp-desktop-linux",  NULL,       NULL,       1 << 8,    False,     1 },
 };
 
 /* layout(s) */
@@ -86,7 +80,7 @@ static const Layout layouts[] = {
 	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
-#define SHCMD(cmd) { .v = (const char*[]){ "sh", "-c", cmd, NULL } }
+#define SHCMD(cmd) { .v = (const char*[]){ "/bin/bash", "-c", cmd, NULL } }
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
@@ -95,19 +89,22 @@ static const char *termcmd[]  = { "/home/kdebre/.local/bin/st", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
+	{ MODKEY,                       XK_s,      spawn,          {.v = dmenucmd } },
 	{ MODKEY,             XK_Return, spawn,          {.v = termcmd } },
-	{ MODKEY,			XK_e,		spawn,	SHCMD("thunar")},
-	{ MODKEY,			XK_o,		spawn,	SHCMD("spectacle -r")},
+	{ MODKEY,			XK_e,      spawn,          SHCMD("nautilus")},
+	{ MODKEY,			XK_p,		spawn,	SHCMD("Flameshot.AppImage gui")},
 	{ MODKEY,			0xff52,		spawn,	SHCMD("pactl set-sink-volume @DEFAULT_SINK@ +5%")},
 	{ MODKEY,			0xff54,		spawn,	SHCMD("pactl set-sink-volume @DEFAULT_SINK@ -5%")},
+	{ MODKEY|ShiftMask, XK_r,      spawn,          SHCMD("systemctl reboot")},
+	{ MODKEY|ShiftMask, XK_s,      spawn,          SHCMD("systemctl poweroff")},
+	{ MODKEY|ShiftMask,             XK_q,      spawn,           SHCMD("pkill -U kd7bi")},
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
 	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
 	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
-	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
-	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
+	/*{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },*/
+	/*{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },*/
 	{ MODKEY,                       XK_Return, zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY,		             XK_c,      killclient,     {0} },
@@ -118,10 +115,10 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
-	{ MODKEY,                       0xff51,  focusmon,       {.i = -1 } },
-	{ MODKEY,                       0xff53, focusmon,       {.i = +1 } },
-	{ MODKEY|ShiftMask,             0xff51,  tagmon,         {.i = -1 } },
-	{ MODKEY|ShiftMask,             0xff53, tagmon,         {.i = +1 } },
+	{ MODKEY,                       XK_h,  focusmon,       {.i = -1 } },
+	{ MODKEY,                       XK_l, focusmon,       {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_h,  tagmon,         {.i = -1 } },
+	{ MODKEY|ShiftMask,             XK_l, tagmon,         {.i = +1 } },
 	{ MODKEY,                       XK_minus,  setgaps,        {.i = -1 } },
 	{ MODKEY,                       XK_plus,  setgaps,        {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_plus,  setgaps,        {.i = 0  } },
@@ -134,9 +131,7 @@ static Key keys[] = {
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
-	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
-	{ MODKEY|ShiftMask, XK_r,      spawn,          SHCMD("systemctl reboot")},
-	{ MODKEY|ShiftMask, XK_s,      spawn,          SHCMD("systemctl poweroff")},
+	/*{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },*/
 };
 
 /* button definitions */

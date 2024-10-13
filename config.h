@@ -15,57 +15,47 @@ static const char col_gray3[]       = "#D8DEE9";
 static const char col_gray4[]       = "#ECEFF4";
 static const char col_cyan[]        = "#434C5E";
 static const char *colors[][3]      = {
-	/*               fg         bg         border   */
-	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
+/*               fg         bg         border   */
+[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
+[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
 };
 
 static const char *const autostart[] = {
-    "sh","-c","xrandr --output HDMI2 --right-of HDMI1",NULL,
-    "tcsh","-c","picom --config $HOME/.config/picom/picom.conf &;feh --bg-fill --randomize $HOME/dwm/wallpaper &",NULL,
-    "tcsh","-c","conda run spyder &",NULL,
-    "tcsh","-c","firefox &;thunderbird &;texstudio &;zoom &;thorium-browser &;obsidian &; mlab -d &;github-desktop &;remmina", NULL,
-    "sh","-c","$HOME/whatsapp.AppImage", NULL,
-    "tcsh","-c","$HOME/.local/share/Zotero/zotero", NULL,
-   /* "tcsh","-c","$HOME/.local/share/FSLauncher/FSLauncher", NULL,*/
-    "sh","-c","$HOME/cursor.AppImage &", NULL,
-	"bash","-c","/usr/share/PowerFolder/PowerFolder-Client.sh &", NULL,
-    "bash","-c","$HOME/dwm/status.sh &", NULL,
-	NULL /* terminate */
+"bash", "-c", "${HOME}/repos/dwm/autostart.sh",NULL,
+/*"bash", "-c", "micromamba run spyder",NULL,*/
+    NULL /* terminate */
 };
 
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 
-static const char ptagf[] = "[%s %s]";	/* format of a tag label */
-static const char etagf[] = "[%s]";	/* format of an empty tag */
-static const int lcaselbl = 0;		/* 1 means make tag label lowercase */	
+static const char ptagf[] = "[%s %s]";/* format of a tag label */
+static const char etagf[] = "[%s]";/* format of an empty tag */
+static const int lcaselbl = 0;/* 1 means make tag label lowercase */
 
 static const Rule rules[] = {
-	/* xprop(1):
-	 *	WM_CLASS(STRING) = instance, class
-	 *	WM_NAME(STRING) = title
-	 */
-	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "Spyder","Spyder",  NULL,       1 << 0,       True,           0},
-	{ NULL,    NULL, "Figure" ,       1 << 0,       False,           0},
-	{ "Thorium-browser",NULL,NULL,1<<1,False,0},
-	{ "Zotero",  NULL,       NULL,       1 << 2,       False,   0 },
-	{ "obsidian",  NULL,       NULL,       1 << 3,       False,        0 },
-	{ "firefox",    NULL, NULL ,       1 << 4,       False,           0},
-	{ "remmina",    NULL, NULL ,       1 << 7,       True,           0},
-	{ "GitHub Desktop",    NULL, NULL ,       1 << 8,       False,           0},
-	/*#######################################################################*/
-	{ "Spyder", "Spyder",    "Spyder",         1 << 0,       False,           1},
-	{ "TeXstudio",  NULL,       NULL,       1 << 1,       False,      1 },
-	{ "zoom",  NULL,       NULL,       1 << 2,       False,       1 },
-	{ "thunderbird",  NULL,       NULL,       1 << 3,       False,        1   },
-	{ NULL,  NULL,     "MATLAB",       1 << 4,       False,          1 },
-	{ "Code",  "code",       NULL,       1 << 5,   False,      1 },
-	{ "Cursor",  "cursor",       NULL,       1 << 5,   False,      1 },
-	{NULL,NULL,"FirstSpirit",1<<8,False,1},
-	{ "de-dal33t-Start",  NULL,       NULL,       1 << 8,      False,      1 },
-	{ "whatsapp-desktop-linux",  NULL,       NULL,       1 << 8,    False,     1 },
+/* xprop(1):
+ *WM_CLASS(STRING) = instance, class
+ *WM_NAME(STRING) = title
+ */
+/* class      instance    title       tags mask     isfloating   monitor */
+{ "Spyder","Spyder",  NULL,       1 << 0,       True,           0},
+{ NULL,    NULL, "Figure" ,       1 << 0,       False,           0},
+{ "Zotero",  NULL,       NULL,       1 <<2,       False,   0 },
+{ "obsidian",  NULL,       NULL,       1 << 3,       False,        0 },
+{ "firefox",    NULL, NULL ,       1 << 4,       False,           0},
+{ "remmina",    NULL, NULL ,       1 << 7,       True,           0},
+{ "GitHub Desktop",    NULL, NULL ,       1 << 8,       False,           0},
+/*#######################################################################*/
+{ "Spyder", "Spyder",    "Spyder",         1 << 0,       False,           1},
+{ "sioyek",    NULL, NULL ,       1 << 2,       False,           1},
+{ "zoom",  NULL,       NULL,       1 << 3,       False,       1 },
+{ "thunderbird",  NULL,       NULL,       1 << 4,       False,        1   },
+{ "pycharm", NULL,       NULL,       1 << 6,       False,        1   },
+{ "MATLAB",  NULL,       NULL,       1 << 6,       False,        1   },
+{ "vesktop",  "vesktop",       NULL,       1 << 7,   False,      1 },
+{ "de-dal33t-Start",  NULL,       NULL,       1 << 8,      False,      1 },
+{ "whatsapp-desktop-linux",  NULL,       NULL,       1 << 8,    False,     1 },
 };
 
 /* layout(s) */
@@ -75,88 +65,90 @@ static const int resizehints = 1;    /* 1 means respect size hints in tiled resi
 static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen window */
 
 static const Layout layouts[] = {
-	/* symbol     arrange function */
-	{ "[]=",      tile },    /* first entry is default */
-	{ "><>",      NULL },    /* no layout function means floating behavior */
-	{ "[M]",      monocle },
+/* symbol     arrange function */
+{ "[]=",      tile },    /* first entry is default */
+{ "><>",      NULL },    /* no layout function means floating behavior */
+{ "[M]",      monocle },
 };
 
 /* key definitions */
 #define MODKEY Mod4Mask
 #define TAGKEYS(KEY,TAG) \
-	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
-	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
-	{ MODKEY|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
-	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
+{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
+{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
+{ MODKEY|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
+{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
-#define SHCMD(cmd) { .v = (const char*[]){ "sh", "-c", cmd, NULL } }
+#define SHCMD(cmd) { .v = (const char*[]){ "/bin/bash", "-c", cmd, NULL } }
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "/home/kdebre/.local/bin/dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
-static const char *termcmd[]  = { "/home/kdebre/.local/bin/st", NULL };
+static const char *termcmd[]  = { "/home/kdebre/.local/bin/wezterm.AppImage", NULL };
 
 static Key keys[] = {
-	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_s,      spawn,          {.v = dmenucmd } },
-	{ MODKEY,             XK_Return, spawn,          {.v = termcmd } },
-	{ MODKEY,			XK_e,		spawn,	SHCMD("nautilus")},
-	{ MODKEY,			XK_p,		spawn,	SHCMD("/home/kdebre/Flameshot.AppImage gui")},
-	{ MODKEY,			0xff52,		spawn,	SHCMD("pactl set-sink-volume @DEFAULT_SINK@ +5%")},
-	{ MODKEY,			0xff54,		spawn,	SHCMD("pactl set-sink-volume @DEFAULT_SINK@ -5%")},
-	{ MODKEY,                       XK_b,      togglebar,      {0} },
-	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
-	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
-	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
-	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
-	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
-	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
-	{ MODKEY,                       XK_Return, zoom,           {0} },
-	{ MODKEY,                       XK_Tab,    view,           {0} },
-	{ MODKEY,		             XK_c,      killclient,     {0} },
-	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
-	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
-	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
-	{ MODKEY,                       XK_space,  setlayout,      {0} },
-	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
-	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
-	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
-	{ MODKEY,                       0xff51,  focusmon,       {.i = -1 } },
-	{ MODKEY,                       0xff53, focusmon,       {.i = +1 } },
-	{ MODKEY|ShiftMask,             0xff51,  tagmon,         {.i = -1 } },
-	{ MODKEY|ShiftMask,             0xff53, tagmon,         {.i = +1 } },
-	{ MODKEY,                       XK_minus,  setgaps,        {.i = -1 } },
-	{ MODKEY,                       XK_plus,  setgaps,        {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_plus,  setgaps,        {.i = 0  } },
-	TAGKEYS(                        XK_1,                      0)
-	TAGKEYS(                        XK_2,                      1)
-	TAGKEYS(                        XK_3,                      2)
-	TAGKEYS(                        XK_4,                      3)
-	TAGKEYS(                        XK_5,                      4)
-	TAGKEYS(                        XK_6,                      5)
-	TAGKEYS(                        XK_7,                      6)
-	TAGKEYS(                        XK_8,                      7)
-	TAGKEYS(                        XK_9,                      8)
-	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
-	{ MODKEY|ShiftMask, XK_r,      spawn,          SHCMD("systemctl reboot")},
-	{ MODKEY|ShiftMask, XK_s,      spawn,          SHCMD("systemctl poweroff")},
+/* modifier                     key        function        argument */
+{ MODKEY,                       XK_s,      spawn,          SHCMD("rofi -show drun")},
+/*{ MODKEY,                       XK_d,      spawn,          {.v = dmenucmd } },*/
+{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
+{ MODKEY,                       XK_e,      spawn,          SHCMD("nautilus")},
+{ MODKEY,                       XK_p,      spawn,          SHCMD("Flameshot.AppImage gui")},
+{ MODKEY,                       0xff52,    spawn,          SHCMD("pactl set-sink-volume @DEFAULT_SINK@ +5%")},
+{ MODKEY,                       0xff54,    spawn,          SHCMD("pactl set-sink-volume @DEFAULT_SINK@ -5%")},
+{ MODKEY|ShiftMask,             XK_r,      spawn,          SHCMD("systemctl reboot")},
+{ MODKEY|ShiftMask,             XK_s,      spawn,          SHCMD("systemctl poweroff")},
+{ MODKEY|ShiftMask,             XK_q,      spawn,          SHCMD("pkill -U kd7bi")},
+{ MODKEY,                       XK_b,      togglebar,      {0} },
+{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
+{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
+/*{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },*/
+/*{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },*/
+{ MODKEY,                       XK_d,      setmfact,       {.f = -0.05} },
+{ MODKEY,                       XK_i,      setmfact,       {.f = +0.05} },
+{ MODKEY,                       XK_Return, zoom,           {0} },
+{ MODKEY,                       XK_Tab,    view,           {0} },
+{ MODKEY,             XK_c,      killclient,     {0} },
+{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
+{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
+{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
+{ MODKEY,                       XK_space,  setlayout,      {0} },
+{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
+{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
+{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
+{ MODKEY,                       XK_h,  focusmon,       {.i = -1 } },
+{ MODKEY,                       XK_l, focusmon,       {.i = +1 } },
+{ MODKEY|ShiftMask,             XK_h,  tagmon,         {.i = -1 } },
+{ MODKEY|ShiftMask,             XK_l, tagmon,         {.i = +1 } },
+{ MODKEY,                       XK_minus,  setgaps,        {.i = -1 } },
+{ MODKEY,                       XK_plus,  setgaps,        {.i = +1 } },
+{ MODKEY|ShiftMask,             XK_plus,  setgaps,        {.i = 0  } },
+TAGKEYS(                        XK_1,                      0)
+TAGKEYS(                        XK_2,                      1)
+TAGKEYS(                        XK_3,                      2)
+TAGKEYS(                        XK_4,                      3)
+TAGKEYS(                        XK_5,                      4)
+TAGKEYS(                        XK_6,                      5)
+TAGKEYS(                        XK_7,                      6)
+TAGKEYS(                        XK_8,                      7)
+TAGKEYS(                        XK_9,                      8)
+/*{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },*/
 };
 
 /* button definitions */
 /* click can be ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle, ClkClientWin, or ClkRootWin */
 static Button buttons[] = {
-	/* click                event mask      button          function        argument */
-	{ ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
-	{ ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },
-	{ ClkWinTitle,          0,              Button2,        zoom,           {0} },
-	{ ClkStatusText,        0,              Button2,        spawn,          {.v = termcmd } },
-	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
-	{ ClkClientWin,         MODKEY,         Button2,        togglefloating, {0} },
-	{ ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },
-	{ ClkTagBar,            0,              Button1,        view,           {0} },
-	{ ClkTagBar,            0,              Button3,        toggleview,     {0} },
-	{ ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
-	{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
+/* click                event mask      button          function        argument */
+{ ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
+{ ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },
+{ ClkWinTitle,          0,              Button2,        zoom,           {0} },
+{ ClkStatusText,        0,              Button2,        spawn,          {.v = termcmd } },
+{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
+{ ClkClientWin,         MODKEY,         Button2,        togglefloating, {0} },
+{ ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },
+{ ClkTagBar,            0,              Button1,        view,           {0} },
+{ ClkTagBar,            0,              Button3,        toggleview,     {0} },
+{ ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
+{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
 };
 
